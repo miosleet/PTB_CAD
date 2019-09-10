@@ -62,6 +62,7 @@
 			this.label20 = new System.Windows.Forms.Label();
 			this.label_Power = new System.Windows.Forms.Label();
 			this.label23 = new System.Windows.Forms.Label();
+			this.label22 = new System.Windows.Forms.Label();
 			this.SuspendLayout();
 			// 
 			// label1
@@ -407,11 +408,21 @@
 			this.label23.Text = "烟提供的马力";
 			this.label23.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
 			// 
+			// label22
+			// 
+			this.label22.AutoSize = true;
+			this.label22.Location = new System.Drawing.Point(475, 600);
+			this.label22.Name = "label22";
+			this.label22.Size = new System.Drawing.Size(159, 30);
+			this.label22.TabIndex = 35;
+			this.label22.Text = "不建议超过20个英烟\r\n如果超过20则按20计算";
+			// 
 			// Form1
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(1182, 853);
+			this.Controls.Add(this.label22);
 			this.Controls.Add(this.label20);
 			this.Controls.Add(this.label_Power);
 			this.Controls.Add(this.label23);
@@ -488,6 +499,7 @@
 		private System.Windows.Forms.Label label20;
 		private System.Windows.Forms.Label label_Power;
 		private System.Windows.Forms.Label label23;
+		private System.Windows.Forms.Label label22;
 	}
 }
 
