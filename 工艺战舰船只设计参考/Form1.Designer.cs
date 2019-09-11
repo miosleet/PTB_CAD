@@ -95,7 +95,7 @@
 			this.label2.Name = "label2";
 			this.label2.Size = new System.Drawing.Size(200, 50);
 			this.label2.TabIndex = 2;
-			this.label2.Text = "装甲盒高宽/格";
+			this.label2.Text = "装甲盒高/格";
 			this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
 			// 
 			// text_ArmorHeight
@@ -106,25 +106,26 @@
 			this.text_ArmorHeight.Name = "text_ArmorHeight";
 			this.text_ArmorHeight.Size = new System.Drawing.Size(200, 50);
 			this.text_ArmorHeight.TabIndex = 3;
-			this.text_ArmorHeight.Text = "0,0,0";
+			this.text_ArmorHeight.Text = "0,0";
+			this.text_ArmorHeight.TextChanged += new System.EventHandler(this.text_ArmorHeight_TextChanged);
 			// 
 			// label3
 			// 
 			this.label3.AutoSize = true;
 			this.label3.Location = new System.Drawing.Point(475, 100);
 			this.label3.Name = "label3";
-			this.label3.Size = new System.Drawing.Size(327, 30);
+			this.label3.Size = new System.Drawing.Size(311, 30);
 			this.label3.TabIndex = 4;
-			this.label3.Text = "ah,bh,d:主装装甲板高度,装甲块高度,甲板宽度\r\n作为下述默认数据，使用英文逗号分隔";
+			this.label3.Text = "aH,bH:主装装甲板高度,装甲块高度,甲板宽度\r\n作为下述默认数据，使用英文逗号分隔";
 			// 
 			// label4
 			// 
 			this.label4.AutoSize = true;
 			this.label4.Location = new System.Drawing.Point(475, 25);
 			this.label4.Name = "label4";
-			this.label4.Size = new System.Drawing.Size(262, 30);
+			this.label4.Size = new System.Drawing.Size(262, 45);
 			this.label4.TabIndex = 5;
-			this.label4.Text = "你预期的体积，<=300,0000\r\n与下述主装甲带差别过大时会闪烁提示";
+			this.label4.Text = "你预期的体积，<=300,000\r\n与下述主装甲带差别过大时会弹窗提示\r\n超出体积限制会弹窗提示";
 			// 
 			// label5
 			// 
@@ -134,7 +135,7 @@
 			this.label5.Name = "label5";
 			this.label5.Size = new System.Drawing.Size(200, 50);
 			this.label5.TabIndex = 6;
-			this.label5.Text = "主装长厚/格";
+			this.label5.Text = "主装/格";
 			this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
 			this.label5.Click += new System.EventHandler(this.label5_Click);
 			// 
@@ -148,6 +149,7 @@
 			this.text_ArmorBelt.Size = new System.Drawing.Size(200, 150);
 			this.text_ArmorBelt.TabIndex = 7;
 			this.text_ArmorBelt.Text = "0,0,0";
+			this.text_ArmorBelt.TextChanged += new System.EventHandler(this.text_ArmorBelt_TextChanged);
 			// 
 			// label6
 			// 
@@ -189,7 +191,7 @@
 			this.label8.Name = "label8";
 			this.label8.Size = new System.Drawing.Size(200, 50);
 			this.label8.TabIndex = 12;
-			this.label8.Text = "甲板宽厚/格";
+			this.label8.Text = "甲板/格";
 			this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
 			// 
 			// text_ArmorDeck
@@ -202,16 +204,17 @@
 			this.text_ArmorDeck.Size = new System.Drawing.Size(200, 150);
 			this.text_ArmorDeck.TabIndex = 13;
 			this.text_ArmorDeck.Text = "0,0,0\r\n\r\n\r\n";
+			this.text_ArmorDeck.TextChanged += new System.EventHandler(this.text_ArmorDeck_TextChanged);
 			// 
 			// label9
 			// 
 			this.label9.AutoSize = true;
 			this.label9.Location = new System.Drawing.Point(475, 350);
 			this.label9.Name = "label9";
-			this.label9.Size = new System.Drawing.Size(345, 60);
+			this.label9.Size = new System.Drawing.Size(353, 75);
 			this.label9.TabIndex = 14;
-			this.label9.Text = "W(,aT,bT)：宽(,板厚,块厚)\r\n每一行主装长厚对应一行甲板宽厚,请确保行数相等\r\nW==0时忽略后两者，aT,bT不填默认0\r\nｅ.g.  0 | 0," +
-    "300, | 15,,200 | 15,200,200";
+			this.label9.Text = "W(,aT,bT,bM)：宽(,板厚,块厚,块轻重)\r\n每一行主装长厚对应一行甲板宽厚,可以用0填充行数\r\n请确保”主装“与”甲板“行数相等\r\nW==0时忽略后两" +
+    "者，aT,bT,bM不填默认0\r\nｅ.g.  0 | 0,300, | 15,,200 | 15,200,200";
 			// 
 			// label10
 			// 
@@ -221,7 +224,7 @@
 			this.label10.Name = "label10";
 			this.label10.Size = new System.Drawing.Size(200, 50);
 			this.label10.TabIndex = 15;
-			this.label10.Text = "主炮塔/个";
+			this.label10.Text = "主炮塔座圈";
 			this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
 			// 
 			// text_ArmorBattery
@@ -240,9 +243,9 @@
 			this.label11.AutoSize = true;
 			this.label11.Location = new System.Drawing.Point(475, 525);
 			this.label11.Name = "label11";
-			this.label11.Size = new System.Drawing.Size(318, 45);
+			this.label11.Size = new System.Drawing.Size(371, 45);
 			this.label11.TabIndex = 17;
-			this.label11.Text = "N,H,aT1,aT2(,bT1,bT2)\r\n数量,装甲高,侧板厚,顶板厚(,侧块厚,顶块厚)\r\n仅提供每个主炮拆分布置装甲的计算";
+			this.label11.Text = "N,H,aT1,aT2(,bT1,bT2,bM)\r\n数量,装甲高,侧板厚,顶板厚(,侧块厚,顶块厚,块轻重)\r\n仅提供每个主炮拆分布置装甲的计算";
 			// 
 			// label12
 			// 
