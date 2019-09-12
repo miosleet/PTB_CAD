@@ -27,6 +27,9 @@ namespace 工艺战舰船只设计参考
 		{
 			InitializeComponent();
 		}
+		int aH = 0, bH = 0;//装甲高度
+		List<double> Armor_belt ,Armor_deck;//装甲带长宽(米)
+		int belt_cnt;
 
 		private struct displacement {
 			public double Volume;//船体
@@ -46,8 +49,6 @@ namespace 工艺战舰船只设计参考
 			public int cnt;
 			public double caliber;
 		}//武器
-
-		int aH = 0, bH = 0;//装甲高度
 
 		private List<List<double>> get_input(String data) {//输入的string转int[]
 			List<List<double>> ret_data = new List<List<double>>();
@@ -85,11 +86,6 @@ namespace 工艺战舰船只设计参考
 
 		}
 
-		private void label1_Click(object sender, EventArgs e)
-		{
-
-		}
-
 		private bool is_alert = true;
 		private void textBox1_TextChanged(object sender, EventArgs e)
 		{
@@ -104,11 +100,6 @@ namespace 工艺战舰船只设计参考
 			label_Weight.Text = dis.sum().ToString();
 		}//更改体积
 
-		private void label5_Click(object sender, EventArgs e)
-		{
-
-		}
-
 		private void textBox3_TextChanged(object sender, EventArgs e)
 		{
 			int[] hp = { 0, 58496, 100000, 132192, 158496, 180735, 200000, 216992, 232192, 245943, 258496, 270043, 280735, 290689, 300000, 308746, 316992, 324792, 332192, 339231, 345943 };
@@ -121,13 +112,6 @@ namespace 工艺战舰船只设计参考
 			dis.Smk = 1215.0 * smk_cnt;
 			label_Weight.Text = dis.sum().ToString();
 		}//更改烟数量
-
-		private void text_Smk_MouseLeave(object sender, EventArgs e)
-		{
-			
-		}
-
-
 
 		private double calc_mgz_cnt(List<Weapon> data) {
 			//一根管的弹药消耗：M=0.0001*C^2
@@ -163,40 +147,81 @@ namespace 工艺战舰船只设计参考
 
 		private void text_ArmorBattery_TextChanged(object sender, EventArgs e)
 		{
-
-		}
+			double now_weight = 0.0;
+			String temp_input = text_ArmorBattery.Text.ToString();
+			if (temp_input.Length == 0) {
+				dis.Battery = 0;
+				label_Weight.Text = dis.sum().ToString();
+				return;
+			}
+			List<List<double>> data = get_input(temp_input);
+			List<double> now_data = data[0];
+			if (now_data.Count != 6 && now_data.Count != 9) return;
+			//N,H,aT1,aT2(,bT1,bT2,bM)数量,装甲高,侧板厚,顶板厚(, 侧块厚, 顶块厚, 块轻重)
+			double N = now_data[0], L = now_data[1],W = now_data[2],H = now_data[3], aT1 = now_data[4], aT2 = now_data[5], bT1=0, bT2=0, bM=0;
+			if (now_data.Count == 9) {
+				bT1 = now_data[6]; bT2 = now_data[7]; bM = now_data[8];
+			}
+			now_weight += N * ((L + W) * H * 2 * 9 * aT1 * 0.001 * 7.81);//侧板
+			now_weight += N * ((L + W - 2) * H * 2 * 27 * bT1 * 0.001 * (bM == 0 ? 10 : 6));//侧块
+			now_weight += N * (L * W * 9 * aT2 * 0.001 * 7.81);//顶板
+			now_weight += N * (L * W * 27 * bT2 * 0.001 * (bM == 0 ? 10 : 6));//顶块
+			//now_weight += N* (/*侧面*/(2 *((L+W)*H *(27 * bT1 * 0.001 * (bM == 0 ? 10 : 6)+9*aT1*0.001*7.81)))/*侧面*/+/*上面*/(L * W * (27 * bT1 * 0.001 * (bM == 0 ? 10 : 6) + 9 * aT1 * 0.001 * 7.81))/*上面*/);
+			dis.Battery = now_weight;
+			label_Weight.Text = dis.sum().ToString();
+		}//炮塔座圈
 
 		private void text_ArmorBelt_TextChanged(object sender, EventArgs e)
 		{
+			Armor_belt = new List<double>();
 			double now_weight = 0.0;
 			//重块比重10，轻块比重6，装甲板比重7.81
 			//L,aT,bT(,aH,bH,bM):长度,板厚度,块厚度(, 板高度, 块高度, 块轻重)
 			String temp_input = text_ArmorBelt.Text.ToString();
 			if (temp_input.Length == 0) return;
 			List<List<double>> data = get_input(temp_input);
+			belt_cnt = data.Count-1;
 			for (int i = 0; i < data.Count; i++) {
 				List<double> now_data = data[i];
-				if (now_data.Count == 3)
-				{
-					double L = now_data[0], aT = now_data[1], bT = now_data[2];
-					now_weight += 9*L * aH * aT * 0.001 * 7.81 + L * bH * 27 * bT  *0.001  *10;
-				}
-				else if (now_data.Count == 6)
-				{
-					double L = now_data[0], aT = now_data[1], bT = now_data[2],aH= now_data[3],bH= now_data[4],bM= now_data[5];
-					now_weight += 9*L * aH * aT * 0.001 * 7.81 + L * bH * 27 * bT * 0.001 * (bM==0?10:6);
-				}
-				else return;
+				if(now_data.Count!=3&&now_data.Count!=6)return;
+				double L = now_data[0], aT = now_data[1], bT = now_data[2], now_aH = aH, now_bH = bH, bM = 0;
+				if (now_data.Count == 6) { now_aH = now_data[3]; now_bH = now_data[4]; bM = now_data[5]; }
+				now_weight += 2 * (9 * L * now_aH * aT * 0.001 * 7.81 + L * now_bH * 27 * bT * 0.001 * (bM == 0 ? 10 : 6));
+				if (i!=0)Armor_belt.Add(L);
 			}
+
+
+
 			dis.Belt = now_weight;
 			label_Weight.Text = dis.sum().ToString();
 
 		}//主装
 
-		private void text_ArmorDeck_TextChanged(object sender, EventArgs e)
+		private void label11_Click(object sender, EventArgs e)
 		{
 
 		}
+
+		private void text_ArmorDeck_TextChanged(object sender, EventArgs e)
+		{
+			Armor_deck = new List<double>();
+			double now_weight = 0.0;
+			String temp_input = text_ArmorDeck.Text.ToString();
+			if (temp_input.Length == 0) return;
+			List<List<double>> data = get_input(temp_input);
+			if (data.Count != belt_cnt) return;
+			for (int i = 0; i < data.Count; i++) {
+				List<double> now_data = data[i];
+				Armor_deck.Add(now_data[0]);
+				if (now_data[0] == 0) continue;
+				else if (now_data.Count != 4) return;
+				double aT = now_data[1], bT = now_data[2],bM=now_data[3];
+				double S = Armor_belt[i] * Armor_deck[i];
+				now_weight+= 9 * S * aT * 0.001 * 7.81 + S * 27 * bT * 0.001 * (bM == 0 ? 10 : 6);
+			}
+			dis.Deck = now_weight;
+			label_Weight.Text = dis.sum().ToString();
+		}//装甲甲板
 
 		private void text_ArmorHeight_TextChanged(object sender, EventArgs e)
 		{
