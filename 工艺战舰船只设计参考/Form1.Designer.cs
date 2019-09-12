@@ -106,7 +106,7 @@
 			this.text_ArmorHeight.Name = "text_ArmorHeight";
 			this.text_ArmorHeight.Size = new System.Drawing.Size(200, 50);
 			this.text_ArmorHeight.TabIndex = 3;
-			this.text_ArmorHeight.Text = "0,0";
+			this.text_ArmorHeight.Text = "0,0,0";
 			this.text_ArmorHeight.TextChanged += new System.EventHandler(this.text_ArmorHeight_TextChanged);
 			// 
 			// label3
@@ -114,9 +114,9 @@
 			this.label3.AutoSize = true;
 			this.label3.Location = new System.Drawing.Point(475, 100);
 			this.label3.Name = "label3";
-			this.label3.Size = new System.Drawing.Size(262, 30);
+			this.label3.Size = new System.Drawing.Size(320, 30);
 			this.label3.TabIndex = 4;
-			this.label3.Text = "aH,bH,W:主装板高度,块高度,宽度\r\n作为下述默认数据，使用英文逗号分隔";
+			this.label3.Text = "aH,bH,eH:主装板高度,块高度,型深（总高度）\r\n作为下述默认数据，使用英文逗号分隔";
 			// 
 			// label4
 			// 
@@ -163,7 +163,7 @@
 			// 
 			this.label7.BackColor = System.Drawing.Color.White;
 			this.label7.Font = new System.Drawing.Font("宋体", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-			this.label7.Location = new System.Drawing.Point(25, 775);
+			this.label7.Location = new System.Drawing.Point(25, 600);
 			this.label7.Name = "label7";
 			this.label7.Size = new System.Drawing.Size(200, 50);
 			this.label7.TabIndex = 9;
@@ -173,7 +173,7 @@
 			// text_Smk
 			// 
 			this.text_Smk.Font = new System.Drawing.Font("宋体", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-			this.text_Smk.Location = new System.Drawing.Point(250, 775);
+			this.text_Smk.Location = new System.Drawing.Point(250, 600);
 			this.text_Smk.Multiline = true;
 			this.text_Smk.Name = "text_Smk";
 			this.text_Smk.Size = new System.Drawing.Size(200, 50);
@@ -246,13 +246,12 @@
 			this.label11.TabIndex = 17;
 			this.label11.Text = "N,L,W,H,aT1,aT2(,bT1,bT2,bM)\r\n数量,长宽高,侧板厚,顶板厚(,侧块厚,顶块厚,块轻重)\r\n仅提供每个主炮拆分布置装甲的计算\r\n若与甲" +
     "板共用装甲可将aT2置0或空";
-			this.label11.Click += new System.EventHandler(this.label11_Click);
 			// 
 			// label12
 			// 
 			this.label12.BackColor = System.Drawing.Color.White;
 			this.label12.Font = new System.Drawing.Font("宋体", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-			this.label12.Location = new System.Drawing.Point(25, 600);
+			this.label12.Location = new System.Drawing.Point(25, 675);
 			this.label12.Name = "label12";
 			this.label12.Size = new System.Drawing.Size(200, 50);
 			this.label12.TabIndex = 18;
@@ -262,7 +261,7 @@
 			// text_Weapon
 			// 
 			this.text_Weapon.Font = new System.Drawing.Font("宋体", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-			this.text_Weapon.Location = new System.Drawing.Point(250, 600);
+			this.text_Weapon.Location = new System.Drawing.Point(250, 675);
 			this.text_Weapon.Multiline = true;
 			this.text_Weapon.Name = "text_Weapon";
 			this.text_Weapon.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
@@ -282,7 +281,7 @@
 			// label14
 			// 
 			this.label14.AutoSize = true;
-			this.label14.Location = new System.Drawing.Point(475, 600);
+			this.label14.Location = new System.Drawing.Point(475, 675);
 			this.label14.Name = "label14";
 			this.label14.Size = new System.Drawing.Size(262, 60);
 			this.label14.TabIndex = 22;
@@ -309,6 +308,7 @@
 			this.label_Weight.TabIndex = 24;
 			this.label_Weight.Text = "0";
 			this.label_Weight.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+			this.label_Weight.Click += new System.EventHandler(this.label_Weight_Click);
 			// 
 			// label_Mgz
 			// 
@@ -318,7 +318,7 @@
 			this.label_Mgz.Name = "label_Mgz";
 			this.label_Mgz.Size = new System.Drawing.Size(200, 50);
 			this.label_Mgz.TabIndex = 26;
-			this.label_Mgz.Text = "0";
+			this.label_Mgz.Text = "0/0";
 			this.label_Mgz.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
 			// 
 			// label17
@@ -346,9 +346,9 @@
 			this.label18.AutoSize = true;
 			this.label18.Location = new System.Drawing.Point(900, 300);
 			this.label18.Name = "label18";
-			this.label18.Size = new System.Drawing.Size(157, 15);
+			this.label18.Size = new System.Drawing.Size(190, 30);
 			this.label18.TabIndex = 28;
-			this.label18.Text = "注意预留防空炮弹药库";
+			this.label18.Text = "射击武器所需弹药库/\r\n吨位不debuff的最大弹药库";
 			// 
 			// label19
 			// 
@@ -415,7 +415,7 @@
 			// label22
 			// 
 			this.label22.AutoSize = true;
-			this.label22.Location = new System.Drawing.Point(475, 775);
+			this.label22.Location = new System.Drawing.Point(475, 600);
 			this.label22.Name = "label22";
 			this.label22.Size = new System.Drawing.Size(159, 30);
 			this.label22.TabIndex = 35;

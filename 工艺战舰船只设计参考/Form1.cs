@@ -27,7 +27,7 @@ namespace 工艺战舰船只设计参考
 		{
 			InitializeComponent();
 		}
-		int aH = 0, bH = 0;//装甲高度
+		int aH = 0, bH = 0,eH=0;//装甲高度
 		List<double> Armor_belt ,Armor_deck;//装甲带长宽(米)
 		int belt_cnt;
 
@@ -123,6 +123,19 @@ namespace 工艺战舰船只设计参考
 			return cnt;
 		}//计算弹药库
 
+		private double calc_mgz_max() {
+			double max_mgz=0.0;
+			double tot_dis = dis.sum();
+			max_mgz = 66.772 * Math.Log(tot_dis, Math.E) - 501.6;
+			return max_mgz;
+		}//计算最大弹药库
+
+		private double calc_mgz_debuff(double cnt,double max) {
+			double mgz_debuff = 0;
+			if (cnt > max) mgz_debuff = 207.35 * (cnt / max - 1);
+			return mgz_debuff;
+		}
+
 		private void textBox4_TextChanged(object sender, EventArgs e)
 		{
 			string temp_input = text_Weapon.Text.ToString();
@@ -136,11 +149,11 @@ namespace 工艺战舰船只设计参考
 					data_arr.Add(temp);
 				}
 				double mgz_cnt = calc_mgz_cnt(data_arr);
-				label_Mgz.Text = mgz_cnt.ToString();
+				double mgz_max = calc_mgz_max();
+				label_Mgz.Text = (Math.Ceiling(mgz_cnt)).ToString()+'/'+(Math.Floor(mgz_max)).ToString();
+				label_LoadDebuff.Text = (calc_mgz_debuff(mgz_cnt, mgz_max)).ToString()+'%';
 			}
 			
-
-			//string[] imput_arr = temp_input.Split(new char[2] { '\r', '\n' });
 
 
 		}//输入输出弹药库
@@ -197,7 +210,7 @@ namespace 工艺战舰船只设计参考
 
 		}//主装
 
-		private void label11_Click(object sender, EventArgs e)
+		private void label_Weight_Click(object sender, EventArgs e)
 		{
 
 		}
@@ -228,8 +241,8 @@ namespace 工艺战舰船只设计参考
 			String temp_input = text_ArmorHeight.Text.ToString();
 			if (temp_input.Length == 0) return;
 			List<List<double>> data = get_input(temp_input);
-			if (data[0].Count != 2) return;
-			aH = (int)data[0][0]; bH = (int)data[0][1];
+			if (data[0].Count != 3 || data.Count != 1) return;
+			aH = (int)data[0][0]; bH = (int)data[0][1];eH=(int)data[0][2] ;
 		}//更改主装高度
 	}
 }
