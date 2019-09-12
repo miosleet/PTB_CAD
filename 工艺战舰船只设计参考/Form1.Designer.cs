@@ -155,7 +155,7 @@
 			this.label6.AutoSize = true;
 			this.label6.Location = new System.Drawing.Point(475, 175);
 			this.label6.Name = "label6";
-			this.label6.Size = new System.Drawing.Size(343, 165);
+			this.label6.Size = new System.Drawing.Size(343, 180);
 			this.label6.TabIndex = 8;
 			this.label6.Text = resources.GetString("label6.Text");
 			// 
@@ -231,7 +231,7 @@
 			this.text_ArmorBattery.Location = new System.Drawing.Point(250, 525);
 			this.text_ArmorBattery.Multiline = true;
 			this.text_ArmorBattery.Name = "text_ArmorBattery";
-			this.text_ArmorBattery.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal;
+			this.text_ArmorBattery.ScrollBars = System.Windows.Forms.ScrollBars.Both;
 			this.text_ArmorBattery.Size = new System.Drawing.Size(200, 50);
 			this.text_ArmorBattery.TabIndex = 16;
 			this.text_ArmorBattery.Text = "0,0,0,0";
@@ -308,7 +308,6 @@
 			this.label_Weight.TabIndex = 24;
 			this.label_Weight.Text = "0";
 			this.label_Weight.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-			this.label_Weight.Click += new System.EventHandler(this.label_Weight_Click);
 			// 
 			// label_Mgz
 			// 

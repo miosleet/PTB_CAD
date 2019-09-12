@@ -27,9 +27,10 @@ namespace 工艺战舰船只设计参考
 		{
 			InitializeComponent();
 		}
+
 		int aH = 0, bH = 0,eH=0;//装甲高度
 		List<double> Armor_belt ,Armor_deck;//装甲带长宽(米)
-		int belt_cnt;
+		int belt_cnt;//装甲带段数
 
 		private struct displacement {
 			public double Volume;//船体
@@ -134,7 +135,7 @@ namespace 工艺战舰船只设计参考
 			double mgz_debuff = 0;
 			if (cnt > max) mgz_debuff = 207.35 * (cnt / max - 1);
 			return mgz_debuff;
-		}
+		}//计算debuff
 
 		private void textBox4_TextChanged(object sender, EventArgs e)
 		{
@@ -151,7 +152,7 @@ namespace 工艺战舰船只设计参考
 				double mgz_cnt = calc_mgz_cnt(data_arr);
 				double mgz_max = calc_mgz_max();
 				label_Mgz.Text = (Math.Ceiling(mgz_cnt)).ToString()+'/'+(Math.Floor(mgz_max)).ToString();
-				label_LoadDebuff.Text = (calc_mgz_debuff(mgz_cnt, mgz_max)).ToString()+'%';
+				label_LoadDebuff.Text = (calc_mgz_debuff(mgz_cnt, mgz_max)).ToString("#0.000")+'%';
 			}
 			
 
@@ -209,11 +210,6 @@ namespace 工艺战舰船只设计参考
 			label_Weight.Text = dis.sum().ToString();
 
 		}//主装
-
-		private void label_Weight_Click(object sender, EventArgs e)
-		{
-
-		}
 
 		private void text_ArmorDeck_TextChanged(object sender, EventArgs e)
 		{
